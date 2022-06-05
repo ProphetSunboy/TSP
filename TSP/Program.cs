@@ -1,4 +1,4 @@
-namespace WinFormsApp1
+namespace TSP
 {
     internal static class Program
     {

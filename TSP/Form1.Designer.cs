@@ -1,4 +1,4 @@
-﻿namespace WinFormsApp1
+﻿namespace TSP
 {
     partial class Form1
     {
