@@ -34,6 +34,9 @@
             this.FuelPriceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CitiesNumberTextBox = new System.Windows.Forms.TextBox();
+            this.CitiesNumberLabel = new System.Windows.Forms.Label();
+            this.TransportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,6 +45,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TablesToolStripMenuItem,
+            this.TransportToolStripMenuItem,
             this.AboutApplicationToolStripMenuItem,
             this.ExitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -85,11 +89,37 @@
             this.ExitToolStripMenuItem.Text = "Выход";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
+            // CitiesNumberTextBox
+            // 
+            this.CitiesNumberTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CitiesNumberTextBox.Location = new System.Drawing.Point(202, 38);
+            this.CitiesNumberTextBox.Name = "CitiesNumberTextBox";
+            this.CitiesNumberTextBox.Size = new System.Drawing.Size(44, 26);
+            this.CitiesNumberTextBox.TabIndex = 1;
+            // 
+            // CitiesNumberLabel
+            // 
+            this.CitiesNumberLabel.AutoSize = true;
+            this.CitiesNumberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CitiesNumberLabel.Location = new System.Drawing.Point(12, 38);
+            this.CitiesNumberLabel.Name = "CitiesNumberLabel";
+            this.CitiesNumberLabel.Size = new System.Drawing.Size(184, 20);
+            this.CitiesNumberLabel.TabIndex = 2;
+            this.CitiesNumberLabel.Text = "Количество городов";
+            // 
+            // TransportToolStripMenuItem
+            // 
+            this.TransportToolStripMenuItem.Name = "TransportToolStripMenuItem";
+            this.TransportToolStripMenuItem.Size = new System.Drawing.Size(97, 24);
+            this.TransportToolStripMenuItem.Text = "Транспорт";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.CitiesNumberLabel);
+            this.Controls.Add(this.CitiesNumberTextBox);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
@@ -109,6 +139,9 @@
         private System.Windows.Forms.ToolStripMenuItem FuelPriceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AboutApplicationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ExitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TransportToolStripMenuItem;
+        private System.Windows.Forms.TextBox CitiesNumberTextBox;
+        private System.Windows.Forms.Label CitiesNumberLabel;
     }
 }
 
