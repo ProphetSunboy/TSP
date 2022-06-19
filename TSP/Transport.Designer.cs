@@ -58,11 +58,11 @@
             this.расходТопливаDataGridViewTextBoxColumn});
             this.TransportData.DataSource = this.transportBindingSource;
             this.TransportData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TransportData.Location = new System.Drawing.Point(0, 30);
+            this.TransportData.Location = new System.Drawing.Point(0, 28);
             this.TransportData.Name = "TransportData";
             this.TransportData.RowHeadersWidth = 51;
             this.TransportData.RowTemplate.Height = 24;
-            this.TransportData.Size = new System.Drawing.Size(793, 242);
+            this.TransportData.Size = new System.Drawing.Size(793, 244);
             this.TransportData.TabIndex = 0;
             // 
             // idDataGridViewTextBoxColumn
@@ -117,7 +117,7 @@
             this.DeleteToolStripMenuItem});
             this.DBMenu.Location = new System.Drawing.Point(0, 0);
             this.DBMenu.Name = "DBMenu";
-            this.DBMenu.Size = new System.Drawing.Size(793, 30);
+            this.DBMenu.Size = new System.Drawing.Size(793, 28);
             this.DBMenu.TabIndex = 1;
             this.DBMenu.Text = "menuStrip1";
             // 
@@ -138,6 +138,7 @@
             this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
             this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(79, 24);
             this.DeleteToolStripMenuItem.Text = "Удалить";
+            this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
             // transportTableAdapter
             // 

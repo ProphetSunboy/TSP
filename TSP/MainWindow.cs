@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TSP
@@ -16,7 +11,7 @@ namespace TSP
         private int[,] _distanceMatrix;
         private int[] _fuelCost;
         private int[,] _resultingMatrix;
-        private int? numberOfCities = null; 
+        private int? numberOfCities = null;
 
         public MainWindow()
         {
@@ -175,7 +170,7 @@ namespace TSP
         {
             for (int j = 0; j < numberOfCities; j++)
                 for (int i = 0; i < numberOfCities; i++)
-                    _resultingMatrix[i,j] = _distanceMatrix[i,j] * _fuelCost[j]; // (расстояние до города / скорость транспорта) * потребление топлива * цену топлива
+                    _resultingMatrix[i, j] = _distanceMatrix[i, j] * _fuelCost[j]; // (расстояние до города / скорость транспорта) * потребление топлива * цену топлива
         }
 
         private void DistancesToolStripMenuItem_Click(object sender, EventArgs e)
