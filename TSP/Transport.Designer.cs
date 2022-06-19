@@ -33,17 +33,18 @@
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.названиеDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.скоростьDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.расходТопливаDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.transportBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.transportDBDataSet = new TSP.TransportDBDataSet();
+            this.Расход_топлива = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.transportBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.transportDBDataSet1 = new TSP.TransportDBDataSet1();
             this.DBMenu = new System.Windows.Forms.MenuStrip();
             this.AddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.transportTableAdapter = new TSP.TransportDBDataSetTableAdapters.TransportTableAdapter();
+            this.transportTableAdapter1 = new TSP.TransportDBDataSet1TableAdapters.TransportTableAdapter();
+            this.RefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.TransportData)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.transportBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.transportDBDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.transportBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.transportDBDataSet1)).BeginInit();
             this.DBMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,8 +56,8 @@
             this.idDataGridViewTextBoxColumn,
             this.названиеDataGridViewTextBoxColumn,
             this.скоростьDataGridViewTextBoxColumn,
-            this.расходТопливаDataGridViewTextBoxColumn});
-            this.TransportData.DataSource = this.transportBindingSource;
+            this.Расход_топлива});
+            this.TransportData.DataSource = this.transportBindingSource1;
             this.TransportData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TransportData.Location = new System.Drawing.Point(0, 28);
             this.TransportData.Name = "TransportData";
@@ -90,23 +91,23 @@
             this.скоростьDataGridViewTextBoxColumn.Name = "скоростьDataGridViewTextBoxColumn";
             this.скоростьDataGridViewTextBoxColumn.Width = 125;
             // 
-            // расходТопливаDataGridViewTextBoxColumn
+            // Расход_топлива
             // 
-            this.расходТопливаDataGridViewTextBoxColumn.DataPropertyName = "Расход топлива";
-            this.расходТопливаDataGridViewTextBoxColumn.HeaderText = "Расход топлива";
-            this.расходТопливаDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.расходТопливаDataGridViewTextBoxColumn.Name = "расходТопливаDataGridViewTextBoxColumn";
-            this.расходТопливаDataGridViewTextBoxColumn.Width = 125;
+            this.Расход_топлива.DataPropertyName = "Расход_топлива";
+            this.Расход_топлива.HeaderText = "Расход топлива";
+            this.Расход_топлива.MinimumWidth = 6;
+            this.Расход_топлива.Name = "Расход_топлива";
+            this.Расход_топлива.Width = 125;
             // 
-            // transportBindingSource
+            // transportBindingSource1
             // 
-            this.transportBindingSource.DataMember = "Transport";
-            this.transportBindingSource.DataSource = this.transportDBDataSet;
+            this.transportBindingSource1.DataMember = "Transport";
+            this.transportBindingSource1.DataSource = this.transportDBDataSet1;
             // 
-            // transportDBDataSet
+            // transportDBDataSet1
             // 
-            this.transportDBDataSet.DataSetName = "TransportDBDataSet";
-            this.transportDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.transportDBDataSet1.DataSetName = "TransportDBDataSet1";
+            this.transportDBDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // DBMenu
             // 
@@ -114,6 +115,7 @@
             this.DBMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.AddToolStripMenuItem,
             this.EditToolStripMenuItem,
+            this.RefreshToolStripMenuItem,
             this.DeleteToolStripMenuItem});
             this.DBMenu.Location = new System.Drawing.Point(0, 0);
             this.DBMenu.Name = "DBMenu";
@@ -126,12 +128,14 @@
             this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
             this.AddToolStripMenuItem.Size = new System.Drawing.Size(90, 24);
             this.AddToolStripMenuItem.Text = "Добавить";
+            this.AddToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
             // 
             // EditToolStripMenuItem
             // 
             this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
             this.EditToolStripMenuItem.Size = new System.Drawing.Size(92, 24);
             this.EditToolStripMenuItem.Text = "Изменить";
+            this.EditToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
             // 
             // DeleteToolStripMenuItem
             // 
@@ -140,9 +144,16 @@
             this.DeleteToolStripMenuItem.Text = "Удалить";
             this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
-            // transportTableAdapter
+            // transportTableAdapter1
             // 
-            this.transportTableAdapter.ClearBeforeFill = true;
+            this.transportTableAdapter1.ClearBeforeFill = true;
+            // 
+            // RefreshToolStripMenuItem
+            // 
+            this.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem";
+            this.RefreshToolStripMenuItem.Size = new System.Drawing.Size(92, 24);
+            this.RefreshToolStripMenuItem.Text = "Обновить";
+            this.RefreshToolStripMenuItem.Click += new System.EventHandler(this.RefreshToolStripMenuItem_Click);
             // 
             // Transport
             // 
@@ -156,8 +167,8 @@
             this.Text = "Transport";
             this.Load += new System.EventHandler(this.Transport_Load);
             ((System.ComponentModel.ISupportInitialize)(this.TransportData)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.transportBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.transportDBDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.transportBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.transportDBDataSet1)).EndInit();
             this.DBMenu.ResumeLayout(false);
             this.DBMenu.PerformLayout();
             this.ResumeLayout(false);
@@ -169,15 +180,16 @@
 
         private System.Windows.Forms.DataGridView TransportData;
         private System.Windows.Forms.MenuStrip DBMenu;
-        private System.Windows.Forms.ToolStripMenuItem AddToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem EditToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DeleteToolStripMenuItem;
-        private TransportDBDataSet transportDBDataSet;
-        private System.Windows.Forms.BindingSource transportBindingSource;
-        private TransportDBDataSetTableAdapters.TransportTableAdapter transportTableAdapter;
+        private TransportDBDataSet1 transportDBDataSet1;
+        private System.Windows.Forms.BindingSource transportBindingSource1;
+        private TransportDBDataSet1TableAdapters.TransportTableAdapter transportTableAdapter1;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn названиеDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn скоростьDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn расходТопливаDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Расход_топлива;
+        private System.Windows.Forms.ToolStripMenuItem AddToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem RefreshToolStripMenuItem;
     }
 }

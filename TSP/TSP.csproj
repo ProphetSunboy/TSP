@@ -67,6 +67,12 @@
     <Compile Include="AboutProgram.Designer.cs">
       <DependentUpon>AboutProgram.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditTransportTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditTransportTable.Designer.cs">
+      <DependentUpon>EditTransportTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,8 +92,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TransportDBDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="TransportDBDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TransportDBDataSet1.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AboutProgram.resx">
       <DependentUpon>AboutProgram.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditTransportTable.resx">
+      <DependentUpon>EditTransportTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
@@ -123,6 +137,17 @@
     </None>
     <None Include="TransportDBDataSet.xss">
       <DependentUpon>TransportDBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="TransportDBDataSet1.xsc">
+      <DependentUpon>TransportDBDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="TransportDBDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TransportDBDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="TransportDBDataSet1.xss">
+      <DependentUpon>TransportDBDataSet1.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
