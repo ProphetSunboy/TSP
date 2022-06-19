@@ -32,11 +32,11 @@
             this.TablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DistancesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FuelPriceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TransportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CitiesNumberTextBox = new System.Windows.Forms.TextBox();
             this.CitiesNumberLabel = new System.Windows.Forms.Label();
-            this.TransportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,12 +68,21 @@
             this.DistancesToolStripMenuItem.Name = "DistancesToolStripMenuItem";
             this.DistancesToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
             this.DistancesToolStripMenuItem.Text = "Расстояний";
+            this.DistancesToolStripMenuItem.Click += new System.EventHandler(this.DistancesToolStripMenuItem_Click);
             // 
             // FuelPriceToolStripMenuItem
             // 
             this.FuelPriceToolStripMenuItem.Name = "FuelPriceToolStripMenuItem";
             this.FuelPriceToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
             this.FuelPriceToolStripMenuItem.Text = "Стоимости топлива";
+            this.FuelPriceToolStripMenuItem.Click += new System.EventHandler(this.FuelPriceToolStripMenuItem_Click);
+            // 
+            // TransportToolStripMenuItem
+            // 
+            this.TransportToolStripMenuItem.Name = "TransportToolStripMenuItem";
+            this.TransportToolStripMenuItem.Size = new System.Drawing.Size(97, 24);
+            this.TransportToolStripMenuItem.Text = "Транспорт";
+            this.TransportToolStripMenuItem.Click += new System.EventHandler(this.TransportToolStripMenuItem_Click);
             // 
             // AboutApplicationToolStripMenuItem
             // 
@@ -106,12 +115,6 @@
             this.CitiesNumberLabel.Size = new System.Drawing.Size(184, 20);
             this.CitiesNumberLabel.TabIndex = 2;
             this.CitiesNumberLabel.Text = "Количество городов";
-            // 
-            // TransportToolStripMenuItem
-            // 
-            this.TransportToolStripMenuItem.Name = "TransportToolStripMenuItem";
-            this.TransportToolStripMenuItem.Size = new System.Drawing.Size(97, 24);
-            this.TransportToolStripMenuItem.Text = "Транспорт";
             // 
             // MainWindow
             // 
