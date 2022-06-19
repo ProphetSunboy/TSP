@@ -43,6 +43,13 @@ namespace TSP
 
                 if (type == "edit")
                 {
+                    if ((NameTextBox.Text == String.Empty) || (SpeedTextBox.Text == String.Empty) ||
+                        (FuelConsumptionTextBox.Text == String.Empty))
+                    {
+                        MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     string name = NameTextBox.Text;
                     int speed = Convert.ToInt32(SpeedTextBox.Text);
                     int fuelConsumption = Convert.ToInt32(FuelConsumptionTextBox.Text);
@@ -58,12 +65,19 @@ namespace TSP
                 }
                 else
                 {
+                    if ((NameTextBox.Text == String.Empty) || (SpeedTextBox.Text == String.Empty) ||
+                        (FuelConsumptionTextBox.Text == String.Empty))
+                    {
+                        MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     string name = NameTextBox.Text;
                     int speed = Convert.ToInt32(SpeedTextBox.Text);
                     int fuelConsumption = Convert.ToInt32(FuelConsumptionTextBox.Text);
 
                     string query = "Insert Into Transport " +
-                            $"(Название, Скорость, Расход_топлива) Values({name}, {speed}, {fuelConsumption})";
+                            $"(Название, Скорость, Расход_топлива) Values('{name}', {speed}, {fuelConsumption})";
 
                     SqlCommand cmd = new SqlCommand(query, _connection);
                     cmd.ExecuteNonQuery();
@@ -73,9 +87,10 @@ namespace TSP
                     FuelConsumptionTextBox.Text = string.Empty;
                 }
             }
-            catch (Exception ex)
+            catch (FormatException)
             {
-                MessageBox.Show(ex.ToString(), "Ошибка");
+                MessageBox.Show("в полях скорость и расход топлива дожлны быть числовые значения",
+                    "ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
