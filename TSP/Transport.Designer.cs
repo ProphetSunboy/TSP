@@ -39,9 +39,9 @@
             this.DBMenu = new System.Windows.Forms.MenuStrip();
             this.AddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transportTableAdapter1 = new TSP.TransportDBDataSet1TableAdapters.TransportTableAdapter();
-            this.RefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.TransportData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.transportBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.transportDBDataSet1)).BeginInit();
@@ -59,11 +59,11 @@
             this.Расход_топлива});
             this.TransportData.DataSource = this.transportBindingSource1;
             this.TransportData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TransportData.Location = new System.Drawing.Point(0, 28);
+            this.TransportData.Location = new System.Drawing.Point(0, 30);
             this.TransportData.Name = "TransportData";
             this.TransportData.RowHeadersWidth = 51;
             this.TransportData.RowTemplate.Height = 24;
-            this.TransportData.Size = new System.Drawing.Size(793, 244);
+            this.TransportData.Size = new System.Drawing.Size(793, 242);
             this.TransportData.TabIndex = 0;
             // 
             // idDataGridViewTextBoxColumn
@@ -119,41 +119,41 @@
             this.DeleteToolStripMenuItem});
             this.DBMenu.Location = new System.Drawing.Point(0, 0);
             this.DBMenu.Name = "DBMenu";
-            this.DBMenu.Size = new System.Drawing.Size(793, 28);
+            this.DBMenu.Size = new System.Drawing.Size(793, 30);
             this.DBMenu.TabIndex = 1;
             this.DBMenu.Text = "menuStrip1";
             // 
             // AddToolStripMenuItem
             // 
             this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
-            this.AddToolStripMenuItem.Size = new System.Drawing.Size(90, 24);
+            this.AddToolStripMenuItem.Size = new System.Drawing.Size(90, 26);
             this.AddToolStripMenuItem.Text = "Добавить";
             this.AddToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
             // 
             // EditToolStripMenuItem
             // 
             this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
-            this.EditToolStripMenuItem.Size = new System.Drawing.Size(92, 24);
+            this.EditToolStripMenuItem.Size = new System.Drawing.Size(92, 26);
             this.EditToolStripMenuItem.Text = "Изменить";
             this.EditToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
+            // 
+            // RefreshToolStripMenuItem
+            // 
+            this.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem";
+            this.RefreshToolStripMenuItem.Size = new System.Drawing.Size(92, 26);
+            this.RefreshToolStripMenuItem.Text = "Обновить";
+            this.RefreshToolStripMenuItem.Click += new System.EventHandler(this.RefreshToolStripMenuItem_Click);
             // 
             // DeleteToolStripMenuItem
             // 
             this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
-            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(79, 24);
+            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(79, 26);
             this.DeleteToolStripMenuItem.Text = "Удалить";
             this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
             // transportTableAdapter1
             // 
             this.transportTableAdapter1.ClearBeforeFill = true;
-            // 
-            // RefreshToolStripMenuItem
-            // 
-            this.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem";
-            this.RefreshToolStripMenuItem.Size = new System.Drawing.Size(92, 24);
-            this.RefreshToolStripMenuItem.Text = "Обновить";
-            this.RefreshToolStripMenuItem.Click += new System.EventHandler(this.RefreshToolStripMenuItem_Click);
             // 
             // Transport
             // 

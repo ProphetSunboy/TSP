@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,10 +9,14 @@ namespace TSP
 {
     public partial class MainWindow : Form
     {
-        private int[,] _distanceMatrix;
-        private int[] _fuelCost;
-        private int[,] _resultingMatrix;
-        private int? numberOfCities = null;
+        private int[,] _distanceMatrix = null;
+        private int[] _fuelCost = null;
+        private double[,] _resultingMatrix;
+        private int? _speed = null;
+        private int _fuelConsumption;
+        private int? _numberOfCities = null;
+        static private string _dbPath = @"D:\КУРСОВАЯ C#\TSP\TSP\TransportDB.mdf";
+        private string _connectionString = $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={_dbPath};";
 
         public MainWindow()
         {
@@ -61,14 +66,13 @@ namespace TSP
 
                         string[] lines = tempReader.Split('\n');
 
-                        if ((numberOfCities != lines.Length) && (numberOfCities != null))
+                        if ((_numberOfCities != lines.Length) && (_numberOfCities != null))
                         {
                             MessageBox.Show("Количество городов в 2 таблицах не равно", "Ошибка",
                                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
 
-                        numberOfCities = lines.Length;
                         string[] column = lines[0].Split(' ');
 
                         if (lines.Length != column.Length)
@@ -77,6 +81,8 @@ namespace TSP
                                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
+
+                        _numberOfCities = lines.Length;
 
                         _distanceMatrix = new int[lines.Length, column.Length];
                         for (int i = 0; i < lines.Length; i++)
@@ -92,11 +98,14 @@ namespace TSP
                                 {
                                     MessageBox.Show("В матрице расстояний есть некорректные данные", "Ошибка",
                                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    _numberOfCities = null;
                                     return;
                                 }
                             }
                         }
                     }
+
+                    MessageBox.Show("Матрица расстояний успешно подключёна", "Успех", MessageBoxButtons.OK);
                 }
                 else
                     MessageBox.Show("Ошибка подключения к файлу", "Ошибка",
@@ -134,43 +143,38 @@ namespace TSP
                             return;
                         }
 
-                        string[] lines = tempReader.Split('\n', ' ');
+                        string[] values = tempReader.Split('\n', ' ');
 
-                        if ((numberOfCities != lines.Length) && (numberOfCities != null))
+                        if ((_numberOfCities != values.Length) && (_numberOfCities != null))
                         {
                             MessageBox.Show("Количество городов в 2 таблицах не равно", "Ошибка",
                                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
 
-                        numberOfCities = lines.Length;
-                        _fuelCost = new int[lines.Length];
+                        _numberOfCities = values.Length;
+                        _fuelCost = new int[values.Length];
 
                         try
                         {
-                            _fuelCost = tempReader.Split('\n', ' ').
-                                Select(x => Convert.ToInt32(x)).ToArray();
+                            _fuelCost = tempReader.Split('\n', ' ').Select(x => Convert.ToInt32(x)).ToArray();
                         }
                         catch (FormatException)
                         {
                             MessageBox.Show("В таблице цен на топливо есть некорректные данные",
                                 "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            _numberOfCities = null;
                             return;
                         }
+
+                        MessageBox.Show("Таблица цен на топливо успешно подключёна", "Успех",
+                            MessageBoxButtons.OK);
                     }
-                    MessageBox.Show(String.Join(",", _fuelCost.Select(x => x.ToString()).ToArray()), "Nazvanie");
                 }
                 else
                     MessageBox.Show("Ошибка подключения к файлу", "Ошибка",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void GetResultingMatrix()
-        {
-            for (int j = 0; j < numberOfCities; j++)
-                for (int i = 0; i < numberOfCities; i++)
-                    _resultingMatrix[i, j] = _distanceMatrix[i, j] * _fuelCost[j]; // (расстояние до города / скорость транспорта) * потребление топлива * цену топлива
         }
 
         private void DistancesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -187,6 +191,79 @@ namespace TSP
         {
             Transport transport = new Transport();
             transport.Show();
+        }
+
+        private void GetTransportInfoButton_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    if (TransportIdTextBox.Text == String.Empty)
+                    {
+                        MessageBox.Show("Введите индекс", "Ошибка", MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        return;
+                    }
+                    int id = Convert.ToInt32(TransportIdTextBox.Text);
+                    SqlCommand query = new SqlCommand($"SELECT * FROM Transport WHERE Id = {id}",
+                        connection);
+
+                    SqlDataReader reader = query.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        _speed = reader.GetInt32(reader.GetOrdinal("Скорость"));
+                        _fuelConsumption = reader.GetInt32(reader.GetOrdinal("Расход_топлива"));
+                    }
+
+                    MessageBox.Show("Транспорт успешно подключён", "Успех", MessageBoxButtons.OK);
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Значение индекса должно быть целочисленным", "Ошибка", MessageBoxButtons.OK,
+                           MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        private void GetResultingMatrixButton_Click(object sender, EventArgs e)
+        {
+            if (_distanceMatrix == null)
+            {
+                MessageBox.Show("Подключите матрицу расстояний", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (_fuelCost == null)
+            {
+                MessageBox.Show("Подключите таблицу стоимости топлива", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (_speed == null)
+            {
+                MessageBox.Show("Подключите транспорт", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            ResultingMatrixDataGridView.RowCount = (int)_numberOfCities;
+            ResultingMatrixDataGridView.ColumnCount = (int)_numberOfCities;
+
+            ResultingMatrixDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+            _resultingMatrix = new double[(int)_numberOfCities, (int)_numberOfCities];  
+            for (int j = 0; j < _numberOfCities; j++)
+                for (int i = 0; i < _numberOfCities; i++)
+                {
+                    _resultingMatrix[i, j] = Math.Round((Convert.ToDouble(_distanceMatrix[i, j]) / Convert.ToDouble(_speed)) * _fuelConsumption * _fuelCost[j], 2); // (расстояние до города / скорость транспорта) * потребление топлива * цену топлива
+                    ResultingMatrixDataGridView.Rows[i].Cells[j].Value = Math.Round(_resultingMatrix[i, j], 2);
+                }
         }
     }
 }

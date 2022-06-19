@@ -89,7 +89,7 @@ namespace TSP
             }
             catch (FormatException)
             {
-                MessageBox.Show("в полях скорость и расход топлива дожлны быть числовые значения",
+                MessageBox.Show("в полях скорость и расход топлива должны быть числовые значения",
                     "ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
