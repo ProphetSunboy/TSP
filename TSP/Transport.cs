@@ -26,7 +26,7 @@ namespace TSP
 
         private void Transport_Load(object sender, EventArgs e)
         {
-            this.transportTableAdapter.Fill(this.transportDBDataSet.Transport);
+            FillTable();
         }
 
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
