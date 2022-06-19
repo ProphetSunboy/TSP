@@ -173,9 +173,9 @@ namespace TSP
 
         private void GetResultingMatrix()
         {
-            for (int i = 0; i < numberOfCities; i++)
-                for (int j = 0; j < numberOfCities; j++)
-                    _resultingMatrix[i,j] = _distanceMatrix[i,j] * _fuelCost[i];
+            for (int j = 0; j < numberOfCities; j++)
+                for (int i = 0; i < numberOfCities; i++)
+                    _resultingMatrix[i,j] = _distanceMatrix[i,j] * _fuelCost[j]; // (расстояние до города / скорость транспорта) * потребление топлива * цену топлива
         }
 
         private void DistancesToolStripMenuItem_Click(object sender, EventArgs e)

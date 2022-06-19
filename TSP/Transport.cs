@@ -16,5 +16,12 @@ namespace TSP
         {
             InitializeComponent();
         }
+
+        private void Transport_Load(object sender, EventArgs e)
+        {
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "transportDBDataSet.Transport". При необходимости она может быть перемещена или удалена.
+            this.transportTableAdapter.Fill(this.transportDBDataSet.Transport);
+
+        }
     }
 }
