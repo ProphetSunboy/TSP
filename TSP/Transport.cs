@@ -17,7 +17,7 @@ namespace TSP
         private SqlCommandBuilder sqlBuilder = null;
         private SqlDataAdapter sqlDataAdapter = null;
         private DataSet dataSet = null;
-        private string dbPath = @"D:\КУРСОВАЯ C#\TSP\TSP\bin\Debug\TransportDB.mdf";
+        private string dbPath = @"D:\КУРСОВАЯ C#\TSP\TSP\TransportDB.mdf";
 
         public Transport()
         {
@@ -27,10 +27,6 @@ namespace TSP
         private void Transport_Load(object sender, EventArgs e)
         {
             this.transportTableAdapter.Fill(this.transportDBDataSet.Transport);
-
-            sqlConnection = new SqlConnection($@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={dbPath};");
-            sqlConnection.Open();
-
         }
 
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -39,9 +35,71 @@ namespace TSP
             var id = TransportData[0, currentCeil[0].RowIndex].Value;
             string query = $"DELETE FROM Transport WHERE id = {id}";
 
-            SqlCommand cmd = new SqlCommand(query, sqlConnection);
-            cmd.ExecuteNonQuery();
-            Transport_Load(sender, e);
+            using (SqlConnection connection =
+                new SqlConnection($@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={dbPath};"))
+            {
+                using (SqlCommand sqlCommand = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        connection.Open();
+
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Операция удаления не была завершена");
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+
+            FillTable();
+        }
+
+        private void FillTable()
+        {
+
+            string sqlSelectAll = "SELECT * FROM Transport";
+
+            using (SqlConnection connection =
+                new SqlConnection($@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={dbPath};"))
+            {
+                using (SqlCommand sqlCommand = new SqlCommand(sqlSelectAll, connection))
+                {
+                    try
+                    {
+                        connection.Open();
+
+                        // Run the query by calling ExecuteReader().
+                        using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
+                        {
+                            // Create a data table to hold the retrieved data.
+                            DataTable dataTable = new DataTable();
+
+                            // Load the data from SqlDataReader into the data table.
+                            dataTable.Load(dataReader);
+
+                            // Display the data from the data table in the data grid view.
+                            this.TransportData.DataSource = dataTable;
+
+                            // Close the SqlDataReader.
+                            dataReader.Close();
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Не удалось заполнить таблицу данными");
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
         }
     }
 }
