@@ -41,6 +41,11 @@
             this.ResultingMatrixDataGridView = new System.Windows.Forms.DataGridView();
             this.ResultingMatrixLabel = new System.Windows.Forms.Label();
             this.GetResultingMatrixButton = new System.Windows.Forms.Button();
+            this.GetMinPathButton = new System.Windows.Forms.Button();
+            this.MinPathLabel = new System.Windows.Forms.Label();
+            this.MinPathCostLabel = new System.Windows.Forms.Label();
+            this.MinPathTextBox = new System.Windows.Forms.TextBox();
+            this.MinPathCostTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ResultingMatrixDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -55,7 +60,7 @@
             this.ExitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -65,7 +70,7 @@
             this.DistancesToolStripMenuItem,
             this.FuelPriceToolStripMenuItem});
             this.TablesToolStripMenuItem.Name = "TablesToolStripMenuItem";
-            this.TablesToolStripMenuItem.Size = new System.Drawing.Size(85, 26);
+            this.TablesToolStripMenuItem.Size = new System.Drawing.Size(85, 24);
             this.TablesToolStripMenuItem.Text = "Таблицы";
             // 
             // DistancesToolStripMenuItem
@@ -85,21 +90,21 @@
             // TransportToolStripMenuItem
             // 
             this.TransportToolStripMenuItem.Name = "TransportToolStripMenuItem";
-            this.TransportToolStripMenuItem.Size = new System.Drawing.Size(97, 26);
+            this.TransportToolStripMenuItem.Size = new System.Drawing.Size(97, 24);
             this.TransportToolStripMenuItem.Text = "Транспорт";
             this.TransportToolStripMenuItem.Click += new System.EventHandler(this.TransportToolStripMenuItem_Click);
             // 
             // AboutApplicationToolStripMenuItem
             // 
             this.AboutApplicationToolStripMenuItem.Name = "AboutApplicationToolStripMenuItem";
-            this.AboutApplicationToolStripMenuItem.Size = new System.Drawing.Size(118, 26);
+            this.AboutApplicationToolStripMenuItem.Size = new System.Drawing.Size(118, 24);
             this.AboutApplicationToolStripMenuItem.Text = "О программе";
             this.AboutApplicationToolStripMenuItem.Click += new System.EventHandler(this.AboutApplicationToolStripMenuItem_Click);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(67, 26);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(67, 24);
             this.ExitToolStripMenuItem.Text = "Выход";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -163,11 +168,63 @@
             this.GetResultingMatrixButton.UseVisualStyleBackColor = true;
             this.GetResultingMatrixButton.Click += new System.EventHandler(this.GetResultingMatrixButton_Click);
             // 
+            // GetMinPathButton
+            // 
+            this.GetMinPathButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.GetMinPathButton.Location = new System.Drawing.Point(25, 356);
+            this.GetMinPathButton.Name = "GetMinPathButton";
+            this.GetMinPathButton.Size = new System.Drawing.Size(246, 27);
+            this.GetMinPathButton.TabIndex = 9;
+            this.GetMinPathButton.Text = "Найти минимальный путь";
+            this.GetMinPathButton.UseVisualStyleBackColor = true;
+            this.GetMinPathButton.Click += new System.EventHandler(this.GetMinPathButton_Click);
+            // 
+            // MinPathLabel
+            // 
+            this.MinPathLabel.AutoSize = true;
+            this.MinPathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.MinPathLabel.Location = new System.Drawing.Point(21, 297);
+            this.MinPathLabel.Name = "MinPathLabel";
+            this.MinPathLabel.Size = new System.Drawing.Size(175, 20);
+            this.MinPathLabel.TabIndex = 10;
+            this.MinPathLabel.Text = "Минимальный путь:";
+            // 
+            // MinPathCostLabel
+            // 
+            this.MinPathCostLabel.AutoSize = true;
+            this.MinPathCostLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.MinPathCostLabel.Location = new System.Drawing.Point(22, 328);
+            this.MinPathCostLabel.Name = "MinPathCostLabel";
+            this.MinPathCostLabel.Size = new System.Drawing.Size(277, 20);
+            this.MinPathCostLabel.TabIndex = 12;
+            this.MinPathCostLabel.Text = "Стоимость минимального пути:";
+            // 
+            // MinPathTextBox
+            // 
+            this.MinPathTextBox.Location = new System.Drawing.Point(202, 297);
+            this.MinPathTextBox.Name = "MinPathTextBox";
+            this.MinPathTextBox.ReadOnly = true;
+            this.MinPathTextBox.Size = new System.Drawing.Size(171, 22);
+            this.MinPathTextBox.TabIndex = 13;
+            // 
+            // MinPathCostTextBox
+            // 
+            this.MinPathCostTextBox.Location = new System.Drawing.Point(305, 326);
+            this.MinPathCostTextBox.Name = "MinPathCostTextBox";
+            this.MinPathCostTextBox.ReadOnly = true;
+            this.MinPathCostTextBox.Size = new System.Drawing.Size(68, 22);
+            this.MinPathCostTextBox.TabIndex = 14;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.MinPathCostTextBox);
+            this.Controls.Add(this.MinPathTextBox);
+            this.Controls.Add(this.MinPathCostLabel);
+            this.Controls.Add(this.MinPathLabel);
+            this.Controls.Add(this.GetMinPathButton);
             this.Controls.Add(this.GetResultingMatrixButton);
             this.Controls.Add(this.ResultingMatrixLabel);
             this.Controls.Add(this.ResultingMatrixDataGridView);
@@ -201,6 +258,11 @@
         private System.Windows.Forms.DataGridView ResultingMatrixDataGridView;
         private System.Windows.Forms.Label ResultingMatrixLabel;
         private System.Windows.Forms.Button GetResultingMatrixButton;
+        private System.Windows.Forms.Button GetMinPathButton;
+        private System.Windows.Forms.Label MinPathLabel;
+        private System.Windows.Forms.Label MinPathCostLabel;
+        private System.Windows.Forms.TextBox MinPathTextBox;
+        private System.Windows.Forms.TextBox MinPathCostTextBox;
     }
 }
 

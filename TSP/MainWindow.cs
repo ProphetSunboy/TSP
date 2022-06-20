@@ -271,5 +271,32 @@ namespace TSP
                     ResultingMatrixDataGridView.Rows[i].Cells[j].Value = Math.Round(_resultingMatrix[i, j], 2);
                 }
         }
+
+        private void GetMinPathButton_Click(object sender, EventArgs e)
+        {
+            //try
+            //{
+                if (_resultingMatrix == null)
+                {
+                    MessageBox.Show("Расчитайте итоговую матрицу", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                TSPimplementation tspImplementation = new TSPimplementation();
+
+                tspImplementation.TSP(_resultingMatrix, (int)_numberOfCities);
+                MinPathCostTextBox.Text = tspImplementation.FinalResultWrapper.ToString();
+
+                for (int i = 0; i <= _numberOfCities; i++)
+                {
+                    MinPathTextBox.Text += tspImplementation.FinalPathWrapper[i].ToString() + ' ';
+                }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.ToString(), "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+        }
     }
 }

@@ -51,7 +51,8 @@ namespace TSP
                     }
                     catch
                     {
-                        MessageBox.Show("Операция удаления не была завершена");
+                        MessageBox.Show("Операция удаления не была завершена", "Ошибка",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     finally
                     {
@@ -134,7 +135,7 @@ namespace TSP
 
                 editTransportTable.Show();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Ошибка добавления транспорта");
             }

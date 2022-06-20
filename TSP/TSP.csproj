@@ -97,6 +97,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TransportDBDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="TSPimplementation.cs" />
     <EmbeddedResource Include="AboutProgram.resx">
       <DependentUpon>AboutProgram.cs</DependentUpon>
     </EmbeddedResource>
