@@ -218,6 +218,12 @@ namespace TSP
                         _fuelConsumption = reader.GetInt32(reader.GetOrdinal("Расход_топлива"));
                     }
 
+                    if (_speed == null)
+                    {
+                        MessageBox.Show("Такого транспорта не существует", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     MessageBox.Show("Транспорт успешно подключён", "Успех", MessageBoxButtons.OK);
                 }
                 catch (FormatException)
