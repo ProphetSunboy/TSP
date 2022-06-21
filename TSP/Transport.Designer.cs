@@ -164,7 +164,7 @@
             this.Controls.Add(this.DBMenu);
             this.MainMenuStrip = this.DBMenu;
             this.Name = "Transport";
-            this.Text = "Transport";
+            this.Text = "Транспорт";
             this.Load += new System.EventHandler(this.Transport_Load);
             ((System.ComponentModel.ISupportInitialize)(this.TransportData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.transportBindingSource1)).EndInit();

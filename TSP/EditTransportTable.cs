@@ -97,5 +97,13 @@ namespace TSP
                 _connection.Close();
             }
         }
+
+        private void EditTransportTable_Load(object sender, EventArgs e)
+        {
+            if (type == "")
+                this.Text = "Добавление транспорта";
+            else
+                this.Text = "Редактирование транспорта";
+        }
     }
 }

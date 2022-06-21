@@ -33,6 +33,7 @@
             this.DistancesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FuelPriceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TransportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ClearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TransportIdTextBox = new System.Windows.Forms.TextBox();
@@ -56,6 +57,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TablesToolStripMenuItem,
             this.TransportToolStripMenuItem,
+            this.ClearToolStripMenuItem,
             this.AboutApplicationToolStripMenuItem,
             this.ExitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -93,6 +95,13 @@
             this.TransportToolStripMenuItem.Size = new System.Drawing.Size(97, 24);
             this.TransportToolStripMenuItem.Text = "Транспорт";
             this.TransportToolStripMenuItem.Click += new System.EventHandler(this.TransportToolStripMenuItem_Click);
+            // 
+            // ClearToolStripMenuItem
+            // 
+            this.ClearToolStripMenuItem.Name = "ClearToolStripMenuItem";
+            this.ClearToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
+            this.ClearToolStripMenuItem.Text = "Очистить";
+            this.ClearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
             // 
             // AboutApplicationToolStripMenuItem
             // 
@@ -173,7 +182,7 @@
             this.GetMinPathButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
             this.GetMinPathButton.Location = new System.Drawing.Point(25, 356);
             this.GetMinPathButton.Name = "GetMinPathButton";
-            this.GetMinPathButton.Size = new System.Drawing.Size(246, 27);
+            this.GetMinPathButton.Size = new System.Drawing.Size(348, 30);
             this.GetMinPathButton.TabIndex = 9;
             this.GetMinPathButton.Text = "Найти минимальный путь";
             this.GetMinPathButton.UseVisualStyleBackColor = true;
@@ -263,6 +272,7 @@
         private System.Windows.Forms.Label MinPathCostLabel;
         private System.Windows.Forms.TextBox MinPathTextBox;
         private System.Windows.Forms.TextBox MinPathCostTextBox;
+        private System.Windows.Forms.ToolStripMenuItem ClearToolStripMenuItem;
     }
 }
 

@@ -108,7 +108,8 @@
             this.Controls.Add(this.SpeedTextBox);
             this.Controls.Add(this.NameTextBox);
             this.Name = "EditTransportTable";
-            this.Text = "EditTransportTable";
+            this.Text = "Редактирование транспорта";
+            this.Load += new System.EventHandler(this.EditTransportTable_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

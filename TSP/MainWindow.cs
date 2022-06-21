@@ -10,9 +10,10 @@ namespace TSP
     public partial class MainWindow : Form
     {
         private int[,] _distanceMatrix = null;
-        private int[] _fuelCost = null;
+        private int[] _fuelCostArray = null;
         private double[,] _resultingMatrix;
         private int? _speed = null;
+        private int? _transportID;
         private int _fuelConsumption;
         private int? _numberOfCities = null;
         static private string _dbPath = @"D:\КУРСОВАЯ C#\TSP\TSP\TransportDB.mdf";
@@ -36,6 +37,16 @@ namespace TSP
 
         private void GetDistanceMatrix()
         {
+            if (_distanceMatrix != null)
+            {
+                string message = "Вы действительно хотите изменить матрицу расстояний?";
+                var result = MessageBox.Show(message, "Изменение матрицы расстояний", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
             var fileContent = string.Empty;
             var filePath = string.Empty;
 
@@ -115,6 +126,16 @@ namespace TSP
 
         private void GetFuelCost()
         {
+            if (_fuelCostArray != null)
+            {
+                string message = "Вы действительно хотите изменить таблицу стоимости топлива?";
+                var result = MessageBox.Show(message, "Изменение стоимости топлива", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
             var fileContent = string.Empty;
             var filePath = string.Empty;
 
@@ -153,11 +174,11 @@ namespace TSP
                         }
 
                         _numberOfCities = values.Length;
-                        _fuelCost = new int[values.Length];
+                        _fuelCostArray = new int[values.Length];
 
                         try
                         {
-                            _fuelCost = tempReader.Split('\n', ' ').Select(x => Convert.ToInt32(x)).ToArray();
+                            _fuelCostArray = tempReader.Split('\n', ' ').Select(x => Convert.ToInt32(x)).ToArray();
                         }
                         catch (FormatException)
                         {
@@ -201,14 +222,30 @@ namespace TSP
                 {
                     connection.Open();
 
+                    if (_transportID == Convert.ToInt32(TransportIdTextBox.Text))
+                        return;
+
                     if (TransportIdTextBox.Text == String.Empty)
                     {
                         MessageBox.Show("Введите индекс", "Ошибка", MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
                         return;
                     }
-                    int id = Convert.ToInt32(TransportIdTextBox.Text);
-                    SqlCommand query = new SqlCommand($"SELECT * FROM Transport WHERE Id = {id}",
+
+                    if ((_speed != null) && (_transportID != Convert.ToInt32(TransportIdTextBox.Text)))
+                    {
+                        string message = "Вы действительно хотите изменить транспорт?";
+                        var result = MessageBox.Show(message, "Изменение транспорта", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result == DialogResult.No)
+                        {
+                            return;
+                        }
+                        else
+                            _speed = null;
+                    }
+
+                    _transportID = Convert.ToInt32(TransportIdTextBox.Text);
+                    SqlCommand query = new SqlCommand($"SELECT * FROM Transport WHERE Id = {_transportID}",
                         connection);
 
                     SqlDataReader reader = query.ExecuteReader();
@@ -246,7 +283,7 @@ namespace TSP
                 return;
             }
 
-            if (_fuelCost == null)
+            if (_fuelCostArray == null)
             {
                 MessageBox.Show("Подключите таблицу стоимости топлива", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -267,15 +304,15 @@ namespace TSP
             for (int j = 0; j < _numberOfCities; j++)
                 for (int i = 0; i < _numberOfCities; i++)
                 {
-                    _resultingMatrix[i, j] = Math.Round((Convert.ToDouble(_distanceMatrix[i, j]) / Convert.ToDouble(_speed)) * _fuelConsumption * _fuelCost[j], 2); // (расстояние до города / скорость транспорта) * потребление топлива * цену топлива
+                    _resultingMatrix[i, j] = Math.Round((Convert.ToDouble(_distanceMatrix[i, j]) / Convert.ToDouble(_speed)) * _fuelConsumption * _fuelCostArray[j], 2); // (расстояние до города / скорость транспорта) * потребление топлива * цену топлива
                     ResultingMatrixDataGridView.Rows[i].Cells[j].Value = Math.Round(_resultingMatrix[i, j], 2);
                 }
         }
 
         private void GetMinPathButton_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 if (_resultingMatrix == null)
                 {
                     MessageBox.Show("Расчитайте итоговую матрицу", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -291,12 +328,34 @@ namespace TSP
                 {
                     MinPathTextBox.Text += tspImplementation.FinalPathWrapper[i].ToString() + ' ';
                 }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString(), "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
+        }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Не удалось найти минимальный путь", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+}
+
+        private void ClearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string message = "Вы действительно хотите очистить форму?";
+            var result = MessageBox.Show(message, "Очистка формы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                _numberOfCities = null;
+                _distanceMatrix = null;
+                _fuelCostArray = null;
+                _speed = null;
+                _transportID = null;
+                _resultingMatrix = null;
+                ResultingMatrixDataGridView.Rows.Clear();
+                ResultingMatrixDataGridView.Refresh();
+                MinPathTextBox.Text = string.Empty;
+                MinPathCostTextBox.Text = string.Empty;
+                TransportIdTextBox.Text = string.Empty;
+            }
+            else
+                return;
         }
     }
 }
