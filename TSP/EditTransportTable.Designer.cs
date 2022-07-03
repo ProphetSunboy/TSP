@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditTransportTable));
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.SpeedTextBox = new System.Windows.Forms.TextBox();
             this.FuelConsumptionTextBox = new System.Windows.Forms.TextBox();
@@ -107,6 +108,8 @@
             this.Controls.Add(this.FuelConsumptionTextBox);
             this.Controls.Add(this.SpeedTextBox);
             this.Controls.Add(this.NameTextBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "EditTransportTable";
             this.Text = "Редактирование транспорта";
             this.Load += new System.EventHandler(this.EditTransportTable_Load);

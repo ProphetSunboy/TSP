@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.TablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DistancesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,8 +48,10 @@
             this.MinPathCostLabel = new System.Windows.Forms.Label();
             this.MinPathTextBox = new System.Windows.Forms.TextBox();
             this.MinPathCostTextBox = new System.Windows.Forms.TextBox();
+            this.PathVisualisingDataGridView = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ResultingMatrixDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PathVisualisingDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -140,9 +143,9 @@
             this.GetTransportInfoButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.GetTransportInfoButton.Location = new System.Drawing.Point(17, 117);
             this.GetTransportInfoButton.Name = "GetTransportInfoButton";
-            this.GetTransportInfoButton.Size = new System.Drawing.Size(108, 29);
+            this.GetTransportInfoButton.Size = new System.Drawing.Size(108, 46);
             this.GetTransportInfoButton.TabIndex = 5;
-            this.GetTransportInfoButton.Text = "Подтвердить";
+            this.GetTransportInfoButton.Text = "Подключить транспорт";
             this.GetTransportInfoButton.UseVisualStyleBackColor = true;
             this.GetTransportInfoButton.Click += new System.EventHandler(this.GetTransportInfoButton_Click);
             // 
@@ -173,7 +176,7 @@
             this.GetResultingMatrixButton.Name = "GetResultingMatrixButton";
             this.GetResultingMatrixButton.Size = new System.Drawing.Size(460, 32);
             this.GetResultingMatrixButton.TabIndex = 8;
-            this.GetResultingMatrixButton.Text = "Расчитать итоговую матрицу";
+            this.GetResultingMatrixButton.Text = "Рассчитать итоговую матрицу";
             this.GetResultingMatrixButton.UseVisualStyleBackColor = true;
             this.GetResultingMatrixButton.Click += new System.EventHandler(this.GetResultingMatrixButton_Click);
             // 
@@ -224,11 +227,22 @@
             this.MinPathCostTextBox.Size = new System.Drawing.Size(68, 22);
             this.MinPathCostTextBox.TabIndex = 14;
             // 
+            // PathVisualisingDataGridView
+            // 
+            this.PathVisualisingDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.PathVisualisingDataGridView.Location = new System.Drawing.Point(394, 297);
+            this.PathVisualisingDataGridView.Name = "PathVisualisingDataGridView";
+            this.PathVisualisingDataGridView.RowHeadersWidth = 51;
+            this.PathVisualisingDataGridView.RowTemplate.Height = 24;
+            this.PathVisualisingDataGridView.Size = new System.Drawing.Size(394, 89);
+            this.PathVisualisingDataGridView.TabIndex = 15;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.PathVisualisingDataGridView);
             this.Controls.Add(this.MinPathCostTextBox);
             this.Controls.Add(this.MinPathTextBox);
             this.Controls.Add(this.MinPathCostLabel);
@@ -241,12 +255,15 @@
             this.Controls.Add(this.TransportIdLabel);
             this.Controls.Add(this.TransportIdTextBox);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = "Построение маршрута";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ResultingMatrixDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PathVisualisingDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,6 +290,7 @@
         private System.Windows.Forms.TextBox MinPathTextBox;
         private System.Windows.Forms.TextBox MinPathCostTextBox;
         private System.Windows.Forms.ToolStripMenuItem ClearToolStripMenuItem;
+        private System.Windows.Forms.DataGridView PathVisualisingDataGridView;
     }
 }
 

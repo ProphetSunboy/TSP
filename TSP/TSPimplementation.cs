@@ -1,19 +1,20 @@
 ﻿public class TSPimplementation
 {
-    public static int CitiesNumber;
-    public static double FinalResult = int.MaxValue;
-    public static int[] FinalPath;
+    public int CitiesNumber;
+    public double FinalResult = int.MaxValue;
+    public int[] FinalPath;
 
     public double FinalResultWrapper => FinalResult;
+
     public int[] FinalPathWrapper => FinalPath;
 
     // visited[] keeps track of the already visited nodes
     // in a particular path
-    static bool[] visited = new bool[CitiesNumber];
+    bool[] visited;
 
     // Function to copy temporary solution to
     // the final solution
-    static void copyToFinal(int[] currentPath)
+    void copyToFinal(int[] currentPath)
     {
         for (int i = 0; i < CitiesNumber; i++)
             FinalPath[i] = currentPath[i];
@@ -22,7 +23,7 @@
 
     // Function to find the minimum edge cost
     // having an end at the vertex i
-    static double firstMin(double[,] matrix, int i)
+    double firstMin(double[,] matrix, int i)
     {
         double min = int.MaxValue;
         for (int k = 0; k < CitiesNumber; k++)
@@ -33,7 +34,7 @@
 
     // function to find the second minimum edge cost
     // having an end at the vertex i
-    static double secondMin(double[,] matrix, int i)
+    double secondMin(double[,] matrix, int i)
     {
         double first = int.MaxValue, second = int.MaxValue;
         for (int j = 0; j < CitiesNumber; j++)
@@ -60,8 +61,7 @@
     //		 space tree
     // curr_path[] -> where the solution is being stored which
     //			 would later be copied to final_path[]
-    static void TSPRec(double[,] matrix, double currentBound, double currentWeight,
-                int level, int[] currentPath)
+    void TSPRec(double[,] matrix, double currentBound, double currentWeight, int level, int[] currentPath)
     {
         // base case is when we have reached level N which
         // means we have covered all the nodes once
@@ -137,9 +137,10 @@
     }
 
     // This function sets up final_path[]
-    public void TSP(double[,] matrix, int citiesNumber)
+    public void TSP(double[,] matrix)
     {
-        CitiesNumber = citiesNumber;
+        CitiesNumber = matrix.GetLength(0);
+        visited = new bool[CitiesNumber];
 
         int[] currentPath = new int[CitiesNumber + 1];
         FinalPath = new int[CitiesNumber + 1];

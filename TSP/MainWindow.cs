@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace TSP
@@ -110,6 +111,7 @@ namespace TSP
                                     MessageBox.Show("В матрице расстояний есть некорректные данные", "Ошибка",
                                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     _numberOfCities = null;
+                                    _distanceMatrix = null;
                                     return;
                                 }
                             }
@@ -182,9 +184,10 @@ namespace TSP
                         }
                         catch (FormatException)
                         {
-                            MessageBox.Show("В таблице цен на топливо есть некорректные данные",
+                            MessageBox.Show("Некорректная таблица цен на топливо",
                                 "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             _numberOfCities = null;
+                            _fuelCostArray = null;
                             return;
                         }
 
@@ -300,7 +303,7 @@ namespace TSP
 
             ResultingMatrixDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
-            _resultingMatrix = new double[(int)_numberOfCities, (int)_numberOfCities];  
+            _resultingMatrix = new double[(int)_numberOfCities, (int)_numberOfCities];
             for (int j = 0; j < _numberOfCities; j++)
                 for (int i = 0; i < _numberOfCities; i++)
                 {
@@ -315,26 +318,69 @@ namespace TSP
             {
                 if (_resultingMatrix == null)
                 {
-                    MessageBox.Show("Расчитайте итоговую матрицу", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Рассчитайте итоговую матрицу", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
+                if (MinPathTextBox.Text != String.Empty)
+                {
+                    return;
+                }
+
+                PathVisualisingDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
                 TSPimplementation tspImplementation = new TSPimplementation();
 
-                tspImplementation.TSP(_resultingMatrix, (int)_numberOfCities);
+                tspImplementation.TSP(_resultingMatrix);
                 MinPathCostTextBox.Text = tspImplementation.FinalResultWrapper.ToString();
+                int[] minP = tspImplementation.FinalPathWrapper;
 
                 for (int i = 0; i <= _numberOfCities; i++)
                 {
-                    MinPathTextBox.Text += tspImplementation.FinalPathWrapper[i].ToString() + ' ';
+                    MinPathTextBox.Text += minP[i].ToString() + ' ';
                 }
-        }
-            catch (Exception ex)
+
+                var visualisingThread = new Thread(VisualisePath);
+                visualisingThread.Start(minP);
+            }
+            catch (Exception)
             {
                 MessageBox.Show("Не удалось найти минимальный путь", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-}
+        }
+
+        private delegate void SafeEditDataGridViewDelegate(int nodeFrom, int nodeTo, int columnNumber);
+
+        private void VisualisePath(Object minP)
+        {
+            int[] minPath = (int[])minP;
+            for (int i = 0; i < minPath.Length - 1; i++)
+            {
+                ResultingMatrixDataGridView.Rows[minPath[i]].Cells[minPath[i + 1]].
+                    Style.BackColor = System.Drawing.Color.Green;
+
+                SafeEditDataGridView(minPath[i], minPath[i + 1], i);
+
+                Thread.Sleep(1000);
+            }
+        }
+
+        private void SafeEditDataGridView(int nodeFrom, int nodeTo, int columnNumber)
+        {
+            if (PathVisualisingDataGridView.InvokeRequired)
+            {
+                var d = new SafeEditDataGridViewDelegate(SafeEditDataGridView);
+                PathVisualisingDataGridView.Invoke(d, new object[] { nodeFrom, nodeTo, columnNumber });
+            }
+            else
+            {
+                PathVisualisingDataGridView.Columns.Add("partOfPath", $"{nodeFrom} -> {nodeTo}");
+
+                PathVisualisingDataGridView.Rows[0].Cells[columnNumber].Value = ResultingMatrixDataGridView.
+                    Rows[nodeFrom].Cells[nodeTo].Value;
+            }
+        }
 
         private void ClearToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -349,7 +395,11 @@ namespace TSP
                 _transportID = null;
                 _resultingMatrix = null;
                 ResultingMatrixDataGridView.Rows.Clear();
+                ResultingMatrixDataGridView.Columns.Clear();
                 ResultingMatrixDataGridView.Refresh();
+                PathVisualisingDataGridView.Rows.Clear();
+                PathVisualisingDataGridView.Columns.Clear();
+                PathVisualisingDataGridView.Refresh();
                 MinPathTextBox.Text = string.Empty;
                 MinPathCostTextBox.Text = string.Empty;
                 TransportIdTextBox.Text = string.Empty;
